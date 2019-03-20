@@ -1,0 +1,19 @@
+button::after {
+    width: 0;
+    height: 0;
+    border: 0;
+    background: none;
+}
+
+.icon-btn {
+    display: inline-block;
+    min-width: 2.2em;
+    padding: 0;
+    border: none;
+    line-height: 0;
+    background-color: transparent;
+    background-position: center 10rpx;
+    background-repeat: no-repeat;
+    background-size: 52rpx, 52rpx;
+    color: #4c4c4c;
+}

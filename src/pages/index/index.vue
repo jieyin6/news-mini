@@ -1,27 +1,31 @@
 <template>
-	<div>
+	<div class="news-bg">
 		<div class="news-container" v-for="(item, index) in newsList" :key="index">
 			<h2>{{item.title}}</h2>
-			<div>
+			<div class="news-box">
 				<template v-if="item.image.length < 3">
-					<div class="news-content">{{item.content}}</div>
-					<image :src="item.image[0]"/>
+					<div class="signle-news-content">{{item.content}}</div>
+					<image class="single-img" :src="item.image[0]"/>
 				</template>
 				<template v-else>
 					<div class="news-content">{{item.content}}</div>
 					<div class="img-container">
 						<div v-for="(img, imgIndex) in item.image" :key="imgIndex">
-							<image v-if="imgIndex < 3" :src="item.image" />
+							<image v-if="imgIndex < 3" :src="img" />
 						</div>
 					</div>
 				</template>
 			</div>
 			<div class="news-item">
-				<p>91</p>
-				<p>好友</p>
+				<p>{{item.commentNum || '' }}</p>
+				<button class="icon-btn" open-type="share">
+					<image src="../../../static/images/weixin.png" />
+					好友
+				</button>
 				<p>
 					<image src="../../../static/images/circle.png" />
-					海报</p>
+					海报
+				</p>
 			</div>
 		</div>
     </div>
@@ -36,42 +40,26 @@ export default {
 				{
 					title: '我是题目',
 					content: '我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容',
-					image:[
-						'https://img-ali.xiaohongchun.com.cn/admin/15529651649025130996.png',
-						'https://img-ali.xiaohongchun.com.cn/admin/15529651649025130996.png',
-						'https://img-ali.xiaohongchun.com.cn/admin/15529651649025130996.png',
-						'https://img-ali.xiaohongchun.com.cn/admin/15529651649025130996.png'
-					]
+					image:['',''],
+					commentNum: 3
 				},
 				{
-					title: '我是题目我是题目我是题目我是题目我是题目我是题目我是题目我是题目',
-					content: '我是内容',
-					image:[
-						'https://img-ali.xiaohongchun.com.cn/admin/15529651649025130996.png',
-						'https://img-ali.xiaohongchun.com.cn/admin/15529651649025130996.png',
-						'https://img-ali.xiaohongchun.com.cn/admin/15529651649025130996.png',
-						'https://img-ali.xiaohongchun.com.cn/admin/15529651649025130996.png'
-					]
+					title: '我是题目我是题目我是题目我是题目我是题目我是题目我是题目我是题目我是题目我是题目我是题目我是题目我是题目我是题目我是题目我是题目',
+					content: '我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容',
+					image:['','','',''],
+					commentNum: 4
+				},
+				{
+					title: '我是题目',
+					content: '我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容',
+					image:['','','',''],
+					commentNum: 0
 				},
 				{
 					title: '我是题目',
 					content: '我是内容',
-					image:[
-						'https://img-ali.xiaohongchun.com.cn/admin/15529651649025130996.png',
-						'https://img-ali.xiaohongchun.com.cn/admin/15529651649025130996.png',
-						'https://img-ali.xiaohongchun.com.cn/admin/15529651649025130996.png',
-						'https://img-ali.xiaohongchun.com.cn/admin/15529651649025130996.png'
-					]
-				},
-				{
-					title: '我是题目',
-					content: '我是内容',
-					image:[
-						'https://img-ali.xiaohongchun.com.cn/admin/15529651649025130996.png',
-						'https://img-ali.xiaohongchun.com.cn/admin/15529651649025130996.png',
-						'https://img-ali.xiaohongchun.com.cn/admin/15529651649025130996.png',
-						'https://img-ali.xiaohongchun.com.cn/admin/15529651649025130996.png'
-					]
+					image:['','','',''],
+					commentNum: 10
 				}
 			]
 		}
@@ -83,19 +71,33 @@ export default {
 	},
 	onLoad() {
 		this.getNewsList()
+	},
+
+	onShareAppMessage() {
+
+		return {
+			title: '自定义转发标题',
+			path: '/pages/index',
+			imageUrl: 'url',
+	  	};
 	}
+	
 
 }
 </script>
 
+<style src="../../style/btn.css"></style>
 <style scoped>
+.news-bg {
+	background-color: #f7f7f7;
+}
 .news-container {
-	padding: 21rpx 21rpx 0 21rpx;
+	padding: 21rpx 21rpx 30rpx 21rpx;
+	margin-bottom: 10rpx;
+	background-color: #fff;
 }
 .news-container h2 {
 	margin-bottom: 10rpx;
-	max-width: 480rpx;
-    max-height: 78rpx;
     line-height: 52rpx;
     font-size: 32rpx;
     font-weight: 600;
@@ -107,14 +109,20 @@ export default {
     overflow: hidden;
 	
 }
-.news-content {
+.news-content, .signle-news-content {
 	font-size: 24rpx;
 	line-height: 38rpx;
 	color: #b6b6b6;
 }
-image {
+.news-box {
+	overflow: hidden;
+}
+.news-box image {
 	height: 160rpx;
 	width: 230rpx;
+	background-color: #b6b6b6;
+	border-radius: 10rpx;
+	vertical-align: bottom;
 }
 .img-container {
 	margin-top: 20rpx;
@@ -122,16 +130,27 @@ image {
 	justify-content: space-around;
 }
 .news-item {
+	margin-top: 28rpx;
 	display: flex;
 	justify-content: space-around;
-	font-size: 24rpx;
 }
-.news-item p {
+.news-item p{
+	font-size: 24rpx;
 	vertical-align: middle;
+}
+.news-item button {
+	font-size: 24rpx;
 }
 .news-item image {
 	width: 35rpx;
 	height: 35rpx;
 	vertical-align: middle;
+}
+.signle-news-content {
+	float: left;
+	width: 414rpx;
+}
+.single-img {
+	float: right;
 }
 </style>
