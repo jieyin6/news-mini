@@ -1,6 +1,9 @@
 <template>
 	<div class="news-bg">
-		<div class="news-container" v-for="(item, index) in newsList" :key="index">
+		<div class="news-container"
+			v-for="(item, index) in newsList"
+			:key="index"
+			@click="toNewsDetail(item.id)">
 			<h2>{{item.title}}</h2>
 			<div class="news-box">
 				<template v-if="item.image.length < 3">
@@ -17,12 +20,12 @@
 				</template>
 			</div>
 			<div class="news-item">
-				<p>{{item.commentNum || '' }}</p>
-				<button class="icon-btn" open-type="share">
+				<p @click.stop="toDatailComment(item.id)">{{item.commentNum || '' }}</p>
+				<button class="icon-btn" open-type="share" @click.stop>
 					<image src="../../../static/images/weixin.png" />
 					好友
 				</button>
-				<p>
+				<p @click.stop>
 					<image src="../../../static/images/circle.png" />
 					海报
 				</p>
@@ -38,24 +41,28 @@ export default {
 		return {
 			newsList: [
 				{
+					id: 1,
 					title: '我是题目',
 					content: '我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容',
 					image:['',''],
 					commentNum: 3
 				},
 				{
+					id: 2,
 					title: '我是题目我是题目我是题目我是题目我是题目我是题目我是题目我是题目我是题目我是题目我是题目我是题目我是题目我是题目我是题目我是题目',
 					content: '我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容',
 					image:['','','',''],
 					commentNum: 4
 				},
 				{
+					id: 3,
 					title: '我是题目',
 					content: '我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容我是内容',
 					image:['','','',''],
 					commentNum: 0
 				},
 				{
+					id: 4,
 					title: '我是题目',
 					content: '我是内容',
 					image:['','','',''],
@@ -67,6 +74,16 @@ export default {
 	methods: {
 		async getNewsList () {
 
+		},
+		toNewsDetail (id) {
+			wx.navigateTo({
+				url: `/pages/news_detail/main?id=${id}`
+			})
+		},
+		toDatailComment (id) {
+			wx.navigateTo({
+				url: `/pages/news_detail/main?id=${id}&toComment=true`
+			})
 		}
 	},
 	onLoad() {

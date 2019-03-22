@@ -1,11 +1,15 @@
 <template>
 <div v-if="showAuth" @click="hide" data-id="modal-mask" class="mask">
     <div class="modal">
-        <h2>授权后可继续操作</h2>
+        <h2>请登录后进行相关操作</h2>
 
-        <button data-name="auth" type="primary" class="auth-button" size="mini" open-type="getUserInfo" lang="zh_CN" @getuserinfo="register">
-            点击授权
-        </button>
+        <div class="bottom">
+            <div class="cancel-btn" data-id="modal-mask" @click="hide">取消</div>
+            <button data-name="auth" class="auth-button" open-type="getUserInfo" lang="zh_CN" @getuserinfo="register">
+            确定
+            </button>
+        </div>
+        
     </div>
 </div>
 </template>
@@ -45,28 +49,58 @@ export default {
 </script>
 
 <style scoped>
+.mask {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 20;
+}
 .modal {
     position: absolute;
-    width: 70%;
+    width: 80%;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     background-color: #fff;
-    padding: 2em;
+    padding-top: 2em;
     font-size: 28rpx;
     color: #a3a3a3;
     text-align: center;
     border-radius: 10rpx;
 }
-
-h2 {
-    font-size: 30rpx;
-    font-weight: bold;
-    color: #4c4c4c;
+.modal .bottom {
+    margin-top: 2em;
+    display: flex;
+    height: 90rpx;
+    border-top: 1rpx solid rgba(0, 0, 0, .5)
 }
-
+h2 {
+    font-size: 36rpx;
+    color: #000;
+}
+.cancel-btn {
+    width: 50%;
+    line-height: 90rpx;
+    font-size: 36rpx;
+    color: #000;
+    border-right: 1rpx solid rgba(0, 0, 0, .5);
+}
 .auth-button {
+    width: 50%;
+    line-height: 90rpx;
     display: inline-block;
-    margin-top: 1.5em;
+    padding: 0;
+    background-color: transparent;
+    margin: 0;
+    color: blue
+}
+button::after {
+    width: 0;
+    height: 0;
+    border: 0;
+    background: none;
 }
 </style>
