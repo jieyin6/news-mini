@@ -8,7 +8,7 @@
                 <image class="user-img" mode="widthFix" v-if="user.userImg" :src="user.userImg" />
                 <p class="user-bottom" :style="user.userImg ? 'margin-top:22rpx': 'margin-top:30rpx'">
                     <span class="browse-num">{{user.browseNum}}次查看</span>
-                    <span class="liked-num like">{{user.likedNum}}</span>
+                    <span class="liked-num like" @click="likeEvent(user, index)">{{user.likedNum}}</span>
                 </p>
             </div>
         </div>
@@ -68,7 +68,16 @@ export default {
                 likedNum: 35
             }]
         }
-    }
+    },
+    methods: {
+        likeEvent () {
+
+        }
+    },
+    onPullDownRefresh() {
+        wx.stopPullDownRefresh();
+        //this.pullNewData();
+    },
 }
 </script>
 
@@ -125,9 +134,9 @@ export default {
     background-repeat: no-repeat;
 }
 .like {
-    background-image: url('../../../static/images/like.png')
+    background-image: url('../../../static/images/others/ts_xiin_black.png')
 }
 .liked {
-    background-image: url('../../../static/images/liked.png')
+    background-image: url('../../../static/images/others/ts_xin_red.png')
 }
 </style>

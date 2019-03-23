@@ -1,18 +1,18 @@
 <template>
     <div class="news-bottom">
         <div class="bottom-left" @click="commentEvent">
-            <image src="../../../static/images/comment.png" />
+            <image src="../../../static/images/detail/xw_fbpl.png" />
             评论
         </div>
         <div class="bottom-right">
             <div>
-                <image src="../../../static/images/color_circle.png" />
+                <image src="../../../static/images/detail/xw_pyq.png" />
             </div>
             <div>
-                <image src="../../../static/images/color_weixin.png" />
+                <image src="../../../static/images/detail/xw_hy.png" />
             </div>
             <div>
-                <image src="../../../static/images/info.png" />
+                <image src="../../../static/images/detail/xw_pls.png" />
                 12
             </div>
         </div>

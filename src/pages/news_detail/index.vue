@@ -82,7 +82,8 @@ export default {
                         ]
                     }
                 ]
-            }
+            },
+            toComment: false
         }
     },
     methods: {
@@ -92,8 +93,8 @@ export default {
         }
         
     },
-    onLoad(options) {
-        if(options.toComment) {
+    mounted () {
+        if(this.toComment) {
             //setTimeout(() => {
                 const query = wx.createSelectorQuery()
                 query.selectViewport().scrollOffset()
@@ -103,8 +104,10 @@ export default {
                     duration: 300
                 }))
             //}, 1500)
-            
         }
+    },
+    onLoad (options) {
+        this.toComment = options.toComment
     }
 }
 </script>
